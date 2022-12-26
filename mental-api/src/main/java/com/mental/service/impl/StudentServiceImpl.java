@@ -27,8 +27,8 @@ public class StudentServiceImpl implements StudentService {
         LambdaQueryWrapper<Student> query = new LambdaQueryWrapper<Student>();
         query.eq(student.getUsername() != null, Student::getUsername, student.getUsername());
         query.eq(student.getPassword() != null, Student::getPassword, student.getPassword());
-        Student stu = studentDao.selectOne(query);
+        student = studentDao.selectOne(query);
 
-        return stu;
+        return student;
     }
 }
