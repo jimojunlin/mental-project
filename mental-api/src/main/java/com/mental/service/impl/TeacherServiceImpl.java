@@ -30,4 +30,15 @@ public class TeacherServiceImpl implements TeacherService {
 
         return teacher;
     }
+
+    /**
+     * 获取教师信息
+     * @param id
+     * @return
+     */
+    @Override
+    public Teacher getInfo(int id) {
+        Teacher teacher = teacherDao.selectById(id);
+        return teacher;
+    }
 }
