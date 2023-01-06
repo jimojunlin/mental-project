@@ -25,6 +25,8 @@ public class Teacher {
     private int title;
     //部门
     private String department;
+    //学校
+    private String school;
     //头像
     private String avatar;
     //个性签名

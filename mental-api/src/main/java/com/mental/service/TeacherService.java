@@ -13,10 +13,4 @@ public interface TeacherService {
      */
     Teacher login(Teacher teacher);
 
-    /**
-     * 获取用户信息
-     * @param id
-     * @return
-     */
-    Teacher getInfo(int id);
 }

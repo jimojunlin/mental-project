@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 public class Student{
     //id
-    private int id;
+    private Long id;
     //学号
-    private int sid;
+    private Long sid;
     //账号
     private String username;
     //密码
@@ -22,7 +22,11 @@ public class Student{
     //性别
     private String gender;
     //年级
-    private int grade;
+    private String grade;
+    //学院
+    private String college;
+    //学校
+    private String school;
     //地址
     private String address;
     //头像

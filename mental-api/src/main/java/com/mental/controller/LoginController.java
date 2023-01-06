@@ -2,7 +2,7 @@ package com.mental.controller;
 
 import com.mental.common.Result;
 import com.mental.pojo.Admin;
-import com.mental.pojo.ResultCode;
+import com.mental.common.ResultCode;
 import com.mental.pojo.Student;
 import com.mental.pojo.Teacher;
 import com.mental.service.AdminService;

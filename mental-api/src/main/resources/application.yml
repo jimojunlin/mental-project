@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: pro
+    active: dev
 
 mybatis-plus:
   configuration:
@@ -12,3 +12,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     db-config:
       id-type: ASSIGN_ID
+
+logging:
+  level:
+    root: info

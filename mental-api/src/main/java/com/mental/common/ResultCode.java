@@ -1,4 +1,4 @@
-package com.mental.pojo;
+package com.mental.common;
 
 /**
  * 返回结果
