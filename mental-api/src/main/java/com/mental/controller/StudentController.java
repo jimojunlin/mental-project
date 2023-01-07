@@ -50,5 +50,20 @@ public class StudentController {
         }
     }
 
+    /**
+     * 根据学号删除学生信息
+     * @param sid
+     * @return
+     */
+    @DeleteMapping("{sid}")
+    public Result deleteBySid(@PathVariable Long sid){
+        try {
+            log.info("根据sid删除学生信息：{}", sid);
+            studentService.deleteBySid(sid);
+            return new Result(ResultCode.SUCCESS);
+        } catch (Exception e){
+            return new Result(ResultCode.ERROR);
+        }
+    }
 
 }

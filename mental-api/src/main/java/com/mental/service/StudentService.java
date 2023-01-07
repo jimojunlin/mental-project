@@ -28,4 +28,10 @@ public interface StudentService {
      * @return
      */
     Map<String,Object> pageQuery(PageQuery pageQuery);
+
+    /**
+     * 根据学号删除学生信息
+     * @param sid
+     */
+    void deleteBySid(Long sid);
 }
