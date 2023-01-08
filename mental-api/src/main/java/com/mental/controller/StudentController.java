@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Map;
 
 @RestController
@@ -52,18 +53,46 @@ public class StudentController {
 
     /**
      * 根据学号删除学生信息
-     * @param sid
      * @return
      */
-    @DeleteMapping("{sid}")
-    public Result deleteBySid(@PathVariable Long sid){
+    @DeleteMapping("/delete")
+    public Result deleteBySid(Long[] sids){
         try {
-            log.info("根据sid删除学生信息：{}", sid);
-            studentService.deleteBySid(sid);
+            log.info("根据sid删除学生信息：{}", Arrays.toString(sids));
+            for (Long sid : sids) {
+                studentService.deleteBySid(sid);
+            }
             return new Result(ResultCode.SUCCESS);
         } catch (Exception e){
             return new Result(ResultCode.ERROR);
         }
     }
 
+    /**
+     * 根据学号查询学生信息
+     * @param sid
+     * @return
+     */
+    @GetMapping("{sid}")
+    public Result selectBySid(@PathVariable Long sid){
+        try {
+            log.info("查询学生信息：{}", sid);
+            Student student = studentService.selectBySid(sid);
+            return new Result(ResultCode.SUCCESS, student);
+        } catch (Exception e){
+            return new Result(ResultCode.ERROR);
+        }
+    }
+
+    /**
+     * 修改学生信息
+     * @param student
+     * @return
+     */
+    @PostMapping("/update")
+    public Result updateById(@RequestBody Student student){
+        log.info("修改学生信息：{}", student);
+        studentService.update(student);
+        return new Result(ResultCode.SUCCESS);
+    }
 }

@@ -34,4 +34,17 @@ public interface StudentService {
      * @param sid
      */
     void deleteBySid(Long sid);
+
+    /**
+     * 根据学号查询学生信息
+     * @param sid
+     * @return
+     */
+    Student selectBySid(Long sid);
+
+    /**
+     * 修改学生信息
+     * @param student
+     */
+    void update(Student student);
 }

@@ -1,7 +1,6 @@
 package com.mental.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mental.dao.StudentDao;
 import com.mental.pojo.PageQuery;
@@ -9,7 +8,6 @@ import com.mental.pojo.Student;
 import com.mental.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +16,6 @@ import java.util.Map;
  * 学生
  */
 @Service
-@Transactional
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentDao studentDao;
@@ -85,5 +82,31 @@ public class StudentServiceImpl implements StudentService {
         queryWrapper.eq(sid != null, Student::getSid, sid);
 
         studentDao.delete(queryWrapper);
+    }
+
+    /**
+     * 根据学号查询学生信息
+     *
+     * @param sid
+     * @return
+     */
+    @Override
+    public Student selectBySid(Long sid) {
+        LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<Student>();
+        queryWrapper.eq(sid != null, Student::getSid, sid);
+
+        Student student = studentDao.selectOne(queryWrapper);
+
+        return student;
+    }
+
+    /**
+     * 修改学生信息
+     *
+     * @param student
+     */
+    @Override
+    public void update(Student student) {
+        studentDao.updateById(student);
     }
 }
