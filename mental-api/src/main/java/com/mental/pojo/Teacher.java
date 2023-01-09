@@ -8,9 +8,9 @@ import lombok.Data;
 @Data
 public class Teacher {
     //id
-    private int id;
+    private Long id;
     //工号
-    private int tid;
+    private Long tid;
     //账号
     private String username;
     //密码
@@ -18,11 +18,11 @@ public class Teacher {
     //姓名
     private String name;
     //年龄
-    private int age;
+    private Integer age;
     //性别
     private String gender;
     //职称
-    private int title;
+    private String title;
     //部门
     private String department;
     //学校

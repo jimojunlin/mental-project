@@ -12,6 +12,10 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     db-config:
       id-type: ASSIGN_ID
+  # 设置主键策略为自增
+  global-config:
+    db-config:
+      id-type: auto
 
 logging:
   level:

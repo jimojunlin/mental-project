@@ -25,4 +25,26 @@ public class AdminServiceImpl implements AdminService {
 
         return admin;
     }
+
+    /**
+     * 根据id获取管理员信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Admin selectById(Long id) {
+        Admin admin = adminDao.selectById(id);
+        return admin;
+    }
+
+    /**
+     * 修改管理员信息
+     *
+     * @param admin
+     */
+    @Override
+    public void update(Admin admin) {
+        adminDao.updateById(admin);
+    }
 }

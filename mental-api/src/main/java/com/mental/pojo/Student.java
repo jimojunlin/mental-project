@@ -1,5 +1,7 @@
 package com.mental.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
@@ -8,6 +10,7 @@ import lombok.Data;
 @Data
 public class Student{
     //id
+//    @TableId(type = IdType.AUTO)
     private Long id;
     //学号
     private Long sid;
@@ -18,7 +21,7 @@ public class Student{
     //姓名
     private String name;
     //年龄
-    private int age;
+    private Integer age;
     //性别
     private String gender;
     //年级

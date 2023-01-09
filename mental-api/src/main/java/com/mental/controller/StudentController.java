@@ -31,6 +31,7 @@ public class StudentController {
             studentService.add(student);
             return new Result(ResultCode.SUCCESS);
         } catch (Exception e){
+            e.printStackTrace();
             return new Result(ResultCode.ERROR);
         }
     }
@@ -47,6 +48,7 @@ public class StudentController {
             Map<String, Object> map = studentService.pageQuery(pageQuery);
             return new Result(ResultCode.SUCCESS, map);
         } catch (Exception e){
+            e.printStackTrace();
             return new Result(ResultCode.ERROR);
         }
     }
@@ -64,6 +66,7 @@ public class StudentController {
             }
             return new Result(ResultCode.SUCCESS);
         } catch (Exception e){
+            e.printStackTrace();
             return new Result(ResultCode.ERROR);
         }
     }
@@ -80,6 +83,7 @@ public class StudentController {
             Student student = studentService.selectBySid(sid);
             return new Result(ResultCode.SUCCESS, student);
         } catch (Exception e){
+            e.printStackTrace();
             return new Result(ResultCode.ERROR);
         }
     }
@@ -91,8 +95,13 @@ public class StudentController {
      */
     @PostMapping("/update")
     public Result updateById(@RequestBody Student student){
-        log.info("修改学生信息：{}", student);
-        studentService.update(student);
-        return new Result(ResultCode.SUCCESS);
+        try {
+            log.info("修改学生信息：{}", student);
+            studentService.update(student);
+            return new Result(ResultCode.SUCCESS);
+        } catch (Exception e){
+            e.printStackTrace();
+            return new Result(ResultCode.ERROR);
+        }
     }
 }

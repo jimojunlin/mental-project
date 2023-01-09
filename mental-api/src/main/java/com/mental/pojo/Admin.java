@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Admin {
     //id
-    private int id;
+    private Long id;
     //账号
     private String username;
     //密码
