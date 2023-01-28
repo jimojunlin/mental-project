@@ -57,9 +57,9 @@ public class TeacherServiceImpl implements TeacherService {
         Page<Teacher> page = new Page<Teacher>(pageQuery.getCurrentPage(), pageQuery.getPageSize());
 
         LambdaQueryWrapper<Teacher> queryWrapper = new LambdaQueryWrapper<Teacher>();
-        queryWrapper.like(pageQuery.getQuery() != null, Teacher::getTid, pageQuery.getQuery())
-                .or().like(pageQuery.getQuery() != null, Teacher::getAge, pageQuery.getQuery())
-                .or().like(pageQuery.getQuery() != null, Teacher::getGender, pageQuery.getQuery());
+//        queryWrapper.like(pageQuery.getQuery() != null, Teacher::getTid, pageQuery.getQuery())
+//                .or().like(pageQuery.getQuery() != null, Teacher::getAge, pageQuery.getQuery())
+//                .or().like(pageQuery.getQuery() != null, Teacher::getGender, pageQuery.getQuery());
 
         teacherDao.selectPage(page, queryWrapper);
 

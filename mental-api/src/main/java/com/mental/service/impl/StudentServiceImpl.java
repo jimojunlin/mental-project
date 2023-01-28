@@ -56,9 +56,9 @@ public class StudentServiceImpl implements StudentService {
         Page<Student> page = new Page<Student>(pageQuery.getCurrentPage(), pageQuery.getPageSize());
 
         LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<Student>();
-        queryWrapper.like(pageQuery.getQuery() != null, Student::getSid, pageQuery.getQuery())
-                .or().like(pageQuery.getQuery() != null, Student::getGender, pageQuery.getQuery())
-                .or().like(pageQuery.getQuery() != null, Student::getAge, pageQuery.getQuery());
+        queryWrapper.like(pageQuery.getSid() != null, Student::getSid, pageQuery.getSid())
+                .eq(pageQuery.getGender() != null && pageQuery.getGender().length()>0, Student::getGender, pageQuery.getGender())
+                .eq(pageQuery.getAge() != null, Student::getAge, pageQuery.getAge());
 
         studentDao.selectPage(page, queryWrapper);
 

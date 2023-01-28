@@ -8,9 +8,14 @@ import lombok.Data;
 @Data
 public class PageQuery {
     //当前页
-    private int currentPage;
+    private Integer currentPage;
     //每页条数
-    private int pageSize;
-    //查询条件
-    private String query;
+    private Integer pageSize;
+
+    //学号
+    private Long sid;
+    //性别
+    private String gender;
+    //年龄
+    private Integer age;
 }
