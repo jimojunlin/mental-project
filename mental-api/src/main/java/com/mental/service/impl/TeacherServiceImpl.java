@@ -8,6 +8,7 @@ import com.mental.pojo.Teacher;
 import com.mental.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +59,7 @@ public class TeacherServiceImpl implements TeacherService {
 
         LambdaQueryWrapper<Teacher> queryWrapper = new LambdaQueryWrapper<Teacher>();
         queryWrapper.like(pageQuery.getTid() != null, Teacher::getTid, pageQuery.getTid())
-                .eq(pageQuery.getGender() != null, Teacher::getGender, pageQuery.getGender())
+                .eq(!StringUtils.isEmpty(pageQuery.getGender()), Teacher::getGender, pageQuery.getGender())
                 .like(pageQuery.getTitle() != null, Teacher::getTitle, pageQuery.getTitle())
                 .like(pageQuery.getSchool() != null, Teacher::getSchool, pageQuery.getSchool());
 
