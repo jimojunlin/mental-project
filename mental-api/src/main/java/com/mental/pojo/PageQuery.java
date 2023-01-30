@@ -18,4 +18,11 @@ public class PageQuery {
     private String gender;
     //年龄
     private Integer age;
+
+    //工号
+    private Long tid;
+    //职称
+    private String title;
+    //学校
+    private String school;
 }
