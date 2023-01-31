@@ -87,3 +87,36 @@ CREATE TABLE admin (
 
 insert into mental.`admin` (`username`, `password`,`email`, `role`,`avatar`) VALUES('admin','admin','2530403643@qq.com','SuperAdmin','https://passport.baidu.com/v6/ucenter')
 
+################################################################
+# 题库表
+drop table if exists tb_question_bank;
+create table tb_question_bank
+(
+    id      bigint auto_increment comment 'id'
+        primary key,
+    title   varchar(255) null comment '标题',
+    details varchar(255) null comment '详情',
+    number int default 0 comment '人数',
+    status  int default 0 comment '状态  0启用，1禁用'
+);
+
+# 问题表
+drop table if exists tb_question;
+create table tb_question
+(
+    id      bigint auto_increment comment 'id'
+        primary key,
+    bank_id bigint       null comment '题库id',
+    title   varchar(255) null comment '标题'
+);
+
+# 答案表
+drop table if exists tb_answer;
+create table tb_answer
+(
+    id           bigint auto_increment comment 'id'
+        primary key,
+    question_id bigint null comment '问题id',
+    answer       varchar(255) null comment '答案',
+    answer_score int         null comment '答案得分'
+);

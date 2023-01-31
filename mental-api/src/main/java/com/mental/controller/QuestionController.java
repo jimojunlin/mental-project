@@ -7,29 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/quiz")
+@RequestMapping("/question")
 public class QuestionController {
     @Autowired
-    private QuestionService quizService;
+    private QuestionService questionService;
 
     @Autowired
     private AnswerService anwserService;
 
-//    @GetMapping("all")
-//    public Result selectAll(){
-//        List<Question> quizzes = quizService.selectAll();
-//        for (Question quiz : quizzes) {
-//            List<AnwserAndQuiz> select = contactService.select(quiz.getId());
-//            List<Answer> anwsers = new ArrayList<Answer>();
-//            for (AnwserAndQuiz anwserAndQuiz : select) {
-//                Long anwserId = anwserAndQuiz.getAnwserId();
-//                Answer anwser = anwserService.getById(anwserId);
-//                anwsers.add(anwser);
-//            }
-//            quiz.setAnwsers(anwsers);
-//        }
-//
-//        return new Result(ResultCode.SUCCESS, quizzes);
-//    }
+    /**
+     * 根据题库id获取问题
+     */
 
 }
