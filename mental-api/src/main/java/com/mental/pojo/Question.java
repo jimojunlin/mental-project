@@ -10,11 +10,19 @@ import java.util.List;
  * 问题表
  */
 @Data
-@TableName("tb_quiz")
-public class Quiz {
+@TableName("tb_question")
+public class Question {
     private Long id; //id
-    private Integer questionIndex;  //问题索引
+    private Long bankId;  //题库id
     private String title;  //标题
     @TableField(exist = false)
-    private List<Anwser> anwsers; //答案
+    private List<Answer> anwsers; //答案
+
+    public Question() {
+    }
+
+    public Question(Long bankId, String title) {
+        this.bankId = bankId;
+        this.title = title;
+    }
 }

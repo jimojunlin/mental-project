@@ -1,21 +1,21 @@
 package com.mental.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mental.dao.QuizDao;
-import com.mental.pojo.Quiz;
-import com.mental.service.QuizService;
+import com.mental.dao.QuestionDao;
+import com.mental.pojo.Question;
+import com.mental.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class QuizServiceImpl extends ServiceImpl<QuizDao, Quiz> implements QuizService {
+public class QuestionServiceImpl extends ServiceImpl<QuestionDao, Question> implements QuestionService {
     @Autowired
-    private QuizDao quizDao;
+    private QuestionDao quizDao;
 
     @Override
-    public List<Quiz> selectAll(){
+    public List<Question> selectAll(){
 
         return quizDao.selectList(null);
     }

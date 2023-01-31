@@ -1,10 +1,12 @@
 package com.mental.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mental.pojo.Anwser;
-import com.mental.pojo.Quiz;
+import com.mental.pojo.QuestionBank;
 import org.apache.ibatis.annotations.Mapper;
 
+/**
+ * 题库
+ */
 @Mapper
-public interface AnwserDao extends BaseMapper<Anwser> {
+public interface QuestionBankDao extends BaseMapper<QuestionBank> {
 }
