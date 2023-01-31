@@ -52,4 +52,20 @@ public class QuestionBankController {
         }
     }
 
+    /**
+     * 获取题库信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/get")
+    public Result selectById(Long id) {
+        try {
+            QuestionBank questionBank = questionBankService.getById(id);
+            return new Result(ResultCode.SUCCESS, questionBank);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(ResultCode.ERROR);
+        }
+    }
+
 }
