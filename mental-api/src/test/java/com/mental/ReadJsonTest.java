@@ -31,8 +31,16 @@ public class ReadJsonTest {
      */
     @Test
     void readFile() throws IOException {
-        File file = new File("C:\\Users\\Lonely\\Desktop\\题库json");
+        File file = new File("C:\\Users\\Lonely\\Desktop\\题库json\\1.json");
+        if (!file.isDirectory()) {
+            System.out.println("该文件不是文件夹！");
+            return;
+        }
         File[] files = file.listFiles();
+        if (files == null){
+            System.out.println("该文件夹下没有文件！");
+            return;
+        }
         for (File f : files) {
             readFileToDatabase(f);
         }

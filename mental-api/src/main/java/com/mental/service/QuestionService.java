@@ -9,5 +9,9 @@ import java.util.List;
  * 问题
  */
 public interface QuestionService extends IService<Question> {
-    List<Question> selectAll();
+    /**
+     * 根据题库id获取所有问题
+     * @return
+     */
+    List<Question> selectAllByBankId(Long bankId);
 }
