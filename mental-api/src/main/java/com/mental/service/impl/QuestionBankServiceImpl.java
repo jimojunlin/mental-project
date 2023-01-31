@@ -26,4 +26,17 @@ public class QuestionBankServiceImpl extends ServiceImpl<QuestionBankDao, Questi
     public List<QuestionBank> getAll() {
         return questionBankDao.selectList(null);
     }
+
+    /**
+     * 修改题库状态
+     *
+     * @param id
+     */
+    @Override
+    public void updateStatusById(Long id) {
+        QuestionBank questionBank = questionBankDao.selectById(id);
+        //修改题库状态
+        questionBank.setStatus(questionBank.getStatus() == 0 ? 1 : 0);
+        questionBankDao.updateById(questionBank);
+    }
 }

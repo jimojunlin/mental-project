@@ -16,4 +16,9 @@ public interface QuestionBankService extends IService<QuestionBank> {
      * @return
      */
     List<QuestionBank> getAll();
+
+    /**
+     * 修改题库状态
+     */
+    void updateStatusById(Long id);
 }
