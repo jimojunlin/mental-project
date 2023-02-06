@@ -20,3 +20,8 @@ mybatis-plus:
 logging:
   level:
     root: info
+# 七牛云相关
+qiniu:
+  # 存储空间所绑定的域名
+  domain: "http://img.lonely.icu"
+  template-name: "mental-project/question_bank_template.json"
