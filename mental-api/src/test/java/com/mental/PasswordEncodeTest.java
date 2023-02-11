@@ -14,7 +14,7 @@ public class PasswordEncodeTest {
     @Test
     public void testPassword(){
         //加密
-        String teacher = passwordEncoder.encode("student");
+        String teacher = passwordEncoder.encode("teacher");
         System.out.println(teacher);
 
         //校验密码

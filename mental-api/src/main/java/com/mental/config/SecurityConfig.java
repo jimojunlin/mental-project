@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //匿名访问
-                .antMatchers("/login/**").anonymous()
+                .antMatchers("/login/**", "/questionBank/info", "/questionBank/all").anonymous()
                 //认证访问
                 .anyRequest().authenticated();
 

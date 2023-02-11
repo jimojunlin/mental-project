@@ -90,7 +90,7 @@ public class QuestionBankController {
      * @param id
      * @return
      */
-    @GetMapping("/get")
+    @GetMapping("/info")
     public Result selectById(Long id) {
         try {
             QuestionBank questionBank = questionBankService.getById(id);
