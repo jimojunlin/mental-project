@@ -1,12 +1,24 @@
 package com.mental.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.mental.common.Constant;
+import com.mental.common.Result;
+import com.mental.common.ResultCode;
 import com.mental.dao.AdminDao;
 import com.mental.pojo.Admin;
 import com.mental.pojo.Student;
+import com.mental.pojo.UserDetail;
 import com.mental.service.AdminService;
+import com.mental.utils.JwtUtil;
+import com.mental.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 管理员
@@ -16,14 +28,30 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminDao adminDao;
 
-    @Override
-    public Admin login(Admin admin) {
-        LambdaQueryWrapper<Admin> query = new LambdaQueryWrapper<Admin>();
-        query.eq(admin.getUsername() != null, Admin::getUsername, admin.getUsername());
-        query.eq(admin.getPassword() != null, Admin::getPassword, admin.getPassword());
-        admin = adminDao.selectOne(query);
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-        return admin;
+    @Autowired
+    private RedisCache redisCache;
+
+    @Override
+    public Result login(Admin admin) {
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken("1." + admin.getUsername(), admin.getPassword());
+        Authentication authenticate = authenticationManager.authenticate(authentication);
+
+        if(Objects.isNull(authenticate)){
+            throw new RuntimeException("用户名或密码错误");
+        }
+
+        //生成jwt
+        UserDetail userDetail = (UserDetail) authenticate.getPrincipal();
+        String key = userDetail.getStatus() + ":" + userDetail.getUsername();
+        String jwt = JwtUtil.createJWT(key);
+
+        //将用户信息存在redis
+        redisCache.setCacheObject(key, userDetail, Constant.TIMEOUT, TimeUnit.MILLISECONDS);
+
+        return new Result(ResultCode.SUCCESS, jwt);
     }
 
     /**

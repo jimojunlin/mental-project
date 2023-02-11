@@ -2,15 +2,26 @@ package com.mental.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mental.common.Constant;
+import com.mental.common.Result;
+import com.mental.common.ResultCode;
 import com.mental.dao.StudentDao;
 import com.mental.pojo.PageQuery;
 import com.mental.pojo.Student;
+import com.mental.pojo.UserDetail;
 import com.mental.service.StudentService;
+import com.mental.utils.JwtUtil;
+import com.mental.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 学生
@@ -20,6 +31,12 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentDao studentDao;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private RedisCache redisCache;
+
     /**
      * 登录
      *
@@ -27,13 +44,22 @@ public class StudentServiceImpl implements StudentService {
      * @return
      */
     @Override
-    public Student login(Student student) {
-        LambdaQueryWrapper<Student> query = new LambdaQueryWrapper<Student>();
-        query.eq(student.getUsername() != null, Student::getUsername, student.getUsername());
-        query.eq(student.getPassword() != null, Student::getPassword, student.getPassword());
-        student = studentDao.selectOne(query);
+    public Result login(Student student) {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken("3." + student.getUsername(), student.getPassword());
+        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+        if(Objects.isNull(authenticate)){
+            throw new RuntimeException("用户名或密码错误");
+        }
 
-        return student;
+        //生成jwt
+        UserDetail userDetail = (UserDetail) authenticate.getPrincipal();
+        String key = userDetail.getStatus() + ":" + userDetail.getUsername();
+        String jwt = JwtUtil.createJWT(key);
+
+        //将信息存入redis
+        redisCache.setCacheObject(key, userDetail, Constant.TIMEOUT, TimeUnit.MILLISECONDS);
+
+        return new Result(ResultCode.SUCCESS, jwt);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.mental.service;
 
+import com.mental.common.Result;
 import com.mental.pojo.PageQuery;
 import com.mental.pojo.Teacher;
 
@@ -14,7 +15,7 @@ public interface TeacherService {
      * @param teacher
      * @return
      */
-    Teacher login(Teacher teacher);
+    Result login(Teacher teacher);
 
     /**
      * 添加教师

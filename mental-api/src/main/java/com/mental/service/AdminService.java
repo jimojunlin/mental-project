@@ -1,12 +1,13 @@
 package com.mental.service;
 
+import com.mental.common.Result;
 import com.mental.pojo.Admin;
 
 /**
  * 管理员
  */
 public interface AdminService {
-    Admin login(Admin admin);
+    Result login(Admin admin);
 
     /**
      * 根据id获取管理员信息

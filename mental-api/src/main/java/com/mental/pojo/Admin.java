@@ -2,11 +2,15 @@ package com.mental.pojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 管理员类
  */
 @Data
-public class Admin {
+public class Admin implements Serializable {
+    private static final long serialVersionUID = -40356785423868312L;
+
     //id
     private Long id;
     //账号

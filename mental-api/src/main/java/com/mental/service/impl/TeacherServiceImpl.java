@@ -2,16 +2,27 @@ package com.mental.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mental.common.Constant;
+import com.mental.common.Result;
+import com.mental.common.ResultCode;
 import com.mental.dao.TeacherDao;
 import com.mental.pojo.PageQuery;
 import com.mental.pojo.Teacher;
+import com.mental.pojo.UserDetail;
 import com.mental.service.TeacherService;
+import com.mental.utils.JwtUtil;
+import com.mental.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 教师
@@ -21,6 +32,12 @@ public class TeacherServiceImpl implements TeacherService {
     @Autowired
     private TeacherDao teacherDao;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private RedisCache redisCache;
+
     /**
      * 登录
      *
@@ -28,13 +45,22 @@ public class TeacherServiceImpl implements TeacherService {
      * @return
      */
     @Override
-    public Teacher login(Teacher teacher) {
-        LambdaQueryWrapper<Teacher> query = new LambdaQueryWrapper<Teacher>();
-        query.eq(teacher.getUsername() != null, Teacher::getUsername, teacher.getUsername());
-        query.eq(teacher.getPassword() != null, Teacher::getPassword, teacher.getPassword());
-        teacher = teacherDao.selectOne(query);
+    public Result login(Teacher teacher) {
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken("2." + teacher.getUsername(), teacher.getPassword());
+        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+        if(Objects.isNull(authenticate)){
+            throw new RuntimeException("用户名或密码错误");
+        }
 
-        return teacher;
+        //生成token
+        UserDetail userDetail = (UserDetail) authenticate.getPrincipal();
+        String key = userDetail.getStatus() + ":" + userDetail.getUsername();
+        String jwt = JwtUtil.createJWT(key);
+
+        //将用户信息存入redis
+        redisCache.setCacheObject(key, userDetail, Constant.TIMEOUT, TimeUnit.MILLISECONDS);
+
+        return new Result(ResultCode.SUCCESS, jwt);
     }
 
     /**

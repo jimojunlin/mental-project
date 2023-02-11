@@ -1,5 +1,6 @@
 package com.mental.service;
 
+import com.mental.common.Result;
 import com.mental.pojo.PageQuery;
 import com.mental.pojo.Student;
 
@@ -14,7 +15,7 @@ public interface StudentService {
      * @param student
      * @return
      */
-    Student login(Student student);
+    Result login(Student student);
 
     /**
      * 添加学生

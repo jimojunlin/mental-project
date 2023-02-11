@@ -141,4 +141,11 @@ public class ReadJsonTest {
             }
         }
     }
+
+    @Test
+    public void testSplit(){
+        String str = "1.admin";
+        String[] split = str.split("\\.");
+        System.out.println(Arrays.toString(split));
+    }
 }

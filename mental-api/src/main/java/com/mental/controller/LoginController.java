@@ -29,16 +29,7 @@ public class LoginController {
      */
     @PostMapping("/student")
     public Result studentLogin(@RequestBody Student student){
-        try {
-            Student stu = studentService.login(student);
-            if(stu == null){
-                return new Result(ResultCode.ERROR);
-            }
-        } catch (Exception e) {
-            return new Result(ResultCode.ERROR);
-        }
-
-        return new Result(ResultCode.SUCCESS);
+        return studentService.login(student);
     }
 
     /**
@@ -47,16 +38,7 @@ public class LoginController {
      */
     @PostMapping("/teacher")
     public Result teacherLogin(@RequestBody Teacher teacher){
-        try {
-            teacher = teacherService.login(teacher);
-            if(teacher == null){
-                return new Result(ResultCode.ERROR);
-            }
-        } catch (Exception e) {
-            return new Result(ResultCode.ERROR);
-        }
-
-        return new Result(ResultCode.SUCCESS);
+        return teacherService.login(teacher);
     }
 
     /**
@@ -65,15 +47,6 @@ public class LoginController {
      */
     @PostMapping("/admin")
     public Result teacherLogin(@RequestBody Admin admin){
-        try {
-            admin = adminService.login(admin);
-            if(admin == null){
-                return new Result(ResultCode.ERROR);
-            }
-        } catch (Exception e) {
-            return new Result(ResultCode.ERROR);
-        }
-
-        return new Result(ResultCode.SUCCESS);
+        return adminService.login(admin);
     }
 }

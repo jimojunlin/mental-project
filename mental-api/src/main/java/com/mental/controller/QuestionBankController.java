@@ -147,7 +147,7 @@ public class QuestionBankController {
             }
             return new Result(ResultCode.SUCCESS);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new Result(ResultCode.ERROR);
         }
