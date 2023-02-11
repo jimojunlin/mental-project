@@ -14,6 +14,9 @@ public class QuestionBank {
     private String details; //详情
     private Integer number; //人数
     private Integer status; //状态 0启用，1禁用
+    private String picture; // 图片
+    private String picturebox; // 方图片
+    private String pictureinfo; // 图片信息
 
     public QuestionBank() {
     }
