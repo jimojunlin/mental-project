@@ -39,11 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //匿名访问
-                .antMatchers("/login/**", "/questionBank/info", "/questionBank/all").anonymous()
+                .antMatchers("/login/**").anonymous()
+                //允许访问
+                .antMatchers( "/questionBank/info", "/questionBank/all").permitAll()
                 //认证访问
                 .anyRequest().authenticated();
 
         //添加token校验过滤器
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+        //允许跨域
+        http.cors();
     }
 }
