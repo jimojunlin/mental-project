@@ -1,5 +1,6 @@
 package com.mental.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mental.common.Constant;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -58,6 +60,8 @@ public class TeacherServiceImpl implements TeacherService {
         String jwt = JwtUtil.createJWT(key);
 
         Teacher tea = teacherDao.selectById(userDetail.getId());
+        LinkedHashMap user = JSONObject.parseObject(JSONObject.toJSONString(tea), LinkedHashMap.class);
+        user.remove("password");
 
         //将用户信息存入redis
         redisCache.setCacheObject(key, userDetail, Constant.TIMEOUT, TimeUnit.MILLISECONDS);
@@ -65,7 +69,7 @@ public class TeacherServiceImpl implements TeacherService {
         //创建返回结果
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("token", jwt);
-        resultMap.put("user", tea);
+        resultMap.put("user", user);
 
         return new Result(ResultCode.SUCCESS, resultMap);
     }

@@ -7,6 +7,4 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface AdminDao extends BaseMapper<Admin> {
-//    @Select("select id, username, email, avatar from admin where id = #{id}")
-//    public Admin selectById(Long id);
 }

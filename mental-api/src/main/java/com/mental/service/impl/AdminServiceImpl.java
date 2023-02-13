@@ -1,5 +1,7 @@
 package com.mental.service.impl;
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.mental.common.Constant;
 import com.mental.common.Result;
@@ -18,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -52,6 +55,8 @@ public class AdminServiceImpl implements AdminService {
 
         //查询用户信息
         Admin adm = adminDao.selectById(userDetail.getId());
+        LinkedHashMap user = JSONObject.parseObject(JSONObject.toJSONString(adm), LinkedHashMap.class);
+        user.remove("password");
 
         //将用户信息存在redis
         redisCache.setCacheObject(key, userDetail, Constant.TIMEOUT, TimeUnit.MILLISECONDS);
@@ -59,7 +64,7 @@ public class AdminServiceImpl implements AdminService {
         //创建返回结果
         Map<String, Object> resultMap = new HashMap<String, Object>();
         resultMap.put("token", jwt);
-        resultMap.put("user", adm);
+        resultMap.put("user", user);
 
         return new Result(ResultCode.SUCCESS, resultMap);
     }
