@@ -17,6 +17,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -48,10 +50,18 @@ public class AdminServiceImpl implements AdminService {
         String key = userDetail.getStatus() + ":" + userDetail.getUsername();
         String jwt = JwtUtil.createJWT(key);
 
+        //查询用户信息
+        Admin adm = adminDao.selectById(userDetail.getId());
+
         //将用户信息存在redis
         redisCache.setCacheObject(key, userDetail, Constant.TIMEOUT, TimeUnit.MILLISECONDS);
 
-        return new Result(ResultCode.SUCCESS, jwt);
+        //创建返回结果
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("token", jwt);
+        resultMap.put("user", adm);
+
+        return new Result(ResultCode.SUCCESS, resultMap);
     }
 
     /**

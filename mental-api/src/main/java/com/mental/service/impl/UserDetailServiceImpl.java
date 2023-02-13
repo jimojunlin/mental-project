@@ -43,7 +43,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 throw new RuntimeException("用户名不存在");
             }
 
-            return new UserDetail(admin.getUsername(), admin.getPassword(), index);
+            return new UserDetail(admin.getId(), admin.getUsername(), admin.getPassword(), index);
         }
 
         if (index == 2) {
@@ -56,7 +56,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 throw new RuntimeException("用户名不存在");
             }
 
-            return new UserDetail(teacher.getUsername(), teacher.getPassword(), index);
+            return new UserDetail(teacher.getId(), teacher.getUsername(), teacher.getPassword(), index);
         }
 
         if (index == 3) {
@@ -69,7 +69,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
                 throw new RuntimeException("用户名不存在");
             }
 
-            return new UserDetail(student.getUsername(), student.getPassword(), index);
+            return new UserDetail(student.getId(), student.getUsername(), student.getPassword(), index);
         }
 
         throw new RuntimeException("用户名不存在");

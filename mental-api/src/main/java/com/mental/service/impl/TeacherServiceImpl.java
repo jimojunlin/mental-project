@@ -57,10 +57,17 @@ public class TeacherServiceImpl implements TeacherService {
         String key = userDetail.getStatus() + ":" + userDetail.getUsername();
         String jwt = JwtUtil.createJWT(key);
 
+        Teacher tea = teacherDao.selectById(userDetail.getId());
+
         //将用户信息存入redis
         redisCache.setCacheObject(key, userDetail, Constant.TIMEOUT, TimeUnit.MILLISECONDS);
 
-        return new Result(ResultCode.SUCCESS, jwt);
+        //创建返回结果
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("token", jwt);
+        resultMap.put("user", tea);
+
+        return new Result(ResultCode.SUCCESS, resultMap);
     }
 
     /**

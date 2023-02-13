@@ -12,6 +12,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDetail implements UserDetails {
+    private Long id;
     private String username;
     private String password;
     private Integer status; //1:管理员 2:教师 3:学生
