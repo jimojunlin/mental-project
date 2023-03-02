@@ -23,7 +23,7 @@ public class ServiceTest {
      */
     @Test
     void getAllByQuestionBank(){
-        List<QuestionBank> all = questionBankService.getAll();
+        List<QuestionBank> all = questionBankService.getAll(1);
         System.out.println(all);
     }
 

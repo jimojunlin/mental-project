@@ -14,8 +14,9 @@ public interface QuestionBankService extends IService<QuestionBank> {
     /**
      * 获取所有题库
      * @return
+     * @param status
      */
-    List<QuestionBank> getAll();
+    List<QuestionBank> getAll(Integer status);
 
     /**
      * 修改题库状态

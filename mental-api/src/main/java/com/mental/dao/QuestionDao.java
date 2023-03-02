@@ -7,6 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 问题
  */
-@Mapper
 public interface QuestionDao extends BaseMapper<Question> {
 }

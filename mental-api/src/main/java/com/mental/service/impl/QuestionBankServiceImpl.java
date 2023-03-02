@@ -1,5 +1,6 @@
 package com.mental.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mental.dao.QuestionBankDao;
 import com.mental.pojo.QuestionBank;
@@ -21,10 +22,14 @@ public class QuestionBankServiceImpl extends ServiceImpl<QuestionBankDao, Questi
      * 获取所有题库
      *
      * @return
+     * @param status
      */
     @Override
-    public List<QuestionBank> getAll() {
-        return questionBankDao.selectList(null);
+    public List<QuestionBank> getAll(Integer status) {
+        LambdaQueryWrapper<QuestionBank> queryWrapper = new LambdaQueryWrapper<QuestionBank>();
+        queryWrapper.eq(status == 0, QuestionBank::getStatus, status);
+
+        return questionBankDao.selectList(queryWrapper);
     }
 
     /**

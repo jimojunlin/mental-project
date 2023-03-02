@@ -18,10 +18,7 @@ import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -59,9 +56,9 @@ public class QuestionBankController {
      * 获取所有题库
      */
     @GetMapping("/all")
-    public Result getAll() {
+    public Result getAll(@RequestParam Integer status) {
         try {
-            List<QuestionBank> bankList = questionBankService.getAll();
+            List<QuestionBank> bankList = questionBankService.getAll(status);
             return new Result(ResultCode.SUCCESS, bankList);
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,6 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 /**
  * 题库
  */
-@Mapper
 public interface QuestionBankDao extends BaseMapper<QuestionBank> {
 }

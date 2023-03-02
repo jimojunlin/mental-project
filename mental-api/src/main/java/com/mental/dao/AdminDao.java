@@ -5,6 +5,5 @@ import com.mental.pojo.Admin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-@Mapper
 public interface AdminDao extends BaseMapper<Admin> {
 }
